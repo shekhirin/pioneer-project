@@ -11,10 +11,10 @@
 
 <%= form_with model: [@question, @question.replies.build] do |form| %>
   <p>
-    <%= form.text_area :body %>
+    <%= form.text_area :body, rows: 6, cols: 60 %>
   </p>
   <p>
-    <%= form.submit %>
+    <%= form.submit 'Reply' %>
   </p>
 <% end %>
 
