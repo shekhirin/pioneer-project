@@ -1,4 +1,6 @@
 <h2>Questions</h2>
+<%= link_to 'Ask a question', controller: :questions, action: :new %>
+<hr>
 <% @questions.each do |question| %>
   <p>
     <%= link_to question.body, question %>

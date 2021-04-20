@@ -3,7 +3,7 @@
 <%= form_with model: @question do |form| %>
   <div>
     <%= form.label :body %><br>
-    <%= form.text_field :body %>
+    <%= form.text_area :body %>
     <% @question.errors.full_messages_for(:body).each do |message| %>
       <div><%= message %></div>
     <% end %>
@@ -11,8 +11,8 @@
 
   <div>
     <%= form.label :tags %><br>
-    <%= select_tag(:tags, options_from_collection_for_select(Tag.all, :id, :name), multiple: true) %>
-    OR
+    <%= select_tag(:tags, options_from_collection_for_select(Tag.all, :id, :name), multiple: true) %><br>
+    OR<br>
     <%= form.text_field :manual_tags, value: '', placeholder: 'Type comma-separated tags' %>
     <% @question.errors.full_messages_for(:tags).each do |message| %>
       <div><%= message %></div>
