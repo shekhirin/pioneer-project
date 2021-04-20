@@ -12,3 +12,10 @@
     <%= form.submit %>
   </p>
 <% end %>
+
+<h2>Replies</h2>
+<% @question.replies.each do |reply| %>
+  <p>
+    <%= reply.body %>
+  </p>
+<% end %>
