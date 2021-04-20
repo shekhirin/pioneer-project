@@ -1,13 +1,11 @@
-<h2><%= @question.body %></h2>
-
-<% if @question.tags.any? %>
-  <h3>Tags:</h3>
-  <ul>
+<h2>
+  <%= @question.body %>
+  <% if @question.tags.any? %>
     <% @question.tags.each do |tag| %>
-      <li><%= link_to tag.name, tag %></li>
+      <%= link_to tag.name, tag, style: 'text-decoration: none; font-size: 10pt; color: gray; font-weight: normal;' %>
     <% end %>
-  </ul>
-<% end %>
+  <% end %>
+</h2>
 
 <%= form_with model: [@question, @question.replies.build] do |form| %>
   <p>
@@ -17,10 +15,9 @@
     <%= form.submit 'Reply' %>
   </p>
 <% end %>
-
-<h2>Replies</h2>
+<br>
 <% @question.replies.each do |reply| %>
-  <p>
+  <p style="white-space: pre-line;">
     <%= reply.body %>
   </p>
 <% end %>

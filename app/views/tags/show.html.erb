@@ -1,21 +1,26 @@
 <h2><%= @tag.name %></h2>
 
-<% if @tag.questions.any? %>
-  <h3>Questions:</h3>
-  <ul>
-    <% @tag.questions.each do |question| %>
-      <li><%= link_to question.body, question %></li>
+<% @tag.questions.each do |question| %>
+  <p>
+    <%= link_to question.body, question, style: 'text-decoration: underline; color: black' %>
+    <% if question.tags.any? %>
+      <% question.tags.each do |tag| %>
+        <%= link_to tag.name, tag, style: 'text-decoration: none; font-size: 10pt; color: gray;' %>
+      <% end %>
     <% end %>
-  </ul>
+  </p>
 <% end %>
+<hr>
 <p>Looking for more to explore?
-<% if @similar_tags and @similar_tags.any? %>
-  How's about checking similar tags?</p>
-  <ul>
-    <% @similar_tags.each do |tag| %>
-      <li><%= link_to tag.name, tag %></li>
-    <% end %>
-  </ul>
-<% else %>
-  How's about checking <%= link_to 'all questions', controller: :questions %>?</p>
-<% end %>
+  <% if @similar_tags and @similar_tags.any? %>
+    How's about checking similar tags?</p>
+    <ul>
+      <% @similar_tags.each do |tag| %>
+        <li><%= link_to tag.name, tag, style: 'text-decoration: underline; color: black' %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    How's about
+    checking <%= link_to 'all questions', {controller: :questions}, {style: 'text-decoration: none; color: blue'} %>?
+    </p>
+  <% end %>
