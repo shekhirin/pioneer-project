@@ -1,0 +1,21 @@
+<h1><%= @tag.name %></h1>
+
+<% if @tag.questions.any? %>
+  <h3>Questions:</h3>
+  <ul>
+    <% @tag.questions.each do |question| %>
+      <li><%= link_to question.body, question %></li>
+    <% end %>
+  </ul>
+<% end %>
+<p>Looking for more to explore?
+<% if @similar_tags and @similar_tags.any? %>
+  How's about checking similar tags?</p>
+  <ul>
+    <% @similar_tags.each do |tag| %>
+      <li><%= link_to tag.name, tag %></li>
+    <% end %>
+  </ul>
+<% else %>
+  How's about checking <%= link_to 'all questions', controller: :questions %>?</p>
+<% end %>
