@@ -1,6 +1,10 @@
 <h1><%= @question.body %></h1>
 
-<p><%= @question.tags %></p>
+<p>
+  <% @question.tags.each do |tag| %>
+  <%= tag %>
+  <% end %>
+</p>
 
 <h2>Add a reply:</h2>
 <%= form_with model: [ @question, @question.replies.build ] do |form| %>

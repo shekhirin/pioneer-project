@@ -12,8 +12,8 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    params = question_params
-    params.tags = transform_tags(params.tags)
+    params = question_params.to_h
+    params[:tags] = transform_tags(params[:tags])
 
     @question = Question.new(params)
 
@@ -31,8 +31,8 @@ class QuestionsController < ApplicationController
   def update
     @question = Question.find(params[:id])
 
-    params = question_params
-    params.tags = transform_tags(params.tags)
+    params = question_params.to_h
+    params[:tags] = transform_tags(params[:tags])
 
     if @question.update(params)
       redirect_to @question
@@ -55,6 +55,6 @@ class QuestionsController < ApplicationController
   end
 
   def transform_tags(tags)
-    tags.map { |tag| Tag.find_or_create_by(tag) }
+    (tags || []).map { |tag| Tag.find_or_create_by(tag) }
   end
 end
