@@ -1,5 +1,5 @@
-<%= link_to 'Top', controller: :questions, action: :index %> |
-<%= link_to 'Newest', controller: :questions, action: :newest %> |
-<%= link_to 'Ask', controller: :questions, action: :new %>
+<%= link_to 'Top', {controller: :questions, action: :index}, style: 'text-decoration: none; color: black;' %> |
+<%= link_to 'Newest', {controller: :questions, action: :newest}, style: 'text-decoration: none; color: black;' %> |
+<%= link_to 'Ask', {controller: :questions, action: :new}, style: 'text-decoration: none; color: black;' %>
 <hr>
 <%= yield %>

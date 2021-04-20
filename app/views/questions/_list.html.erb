@@ -1,8 +1,10 @@
 <% @questions.each do |question| %>
   <p>
-    <%= link_to question.body, question %>
+    <%= link_to question.body, question, style: 'text-decoration: underline; color: black' %>
     <% if question.tags.any? %>
-      (<%= question.tags.map { |tag| tag.name } .join(', ') %>)
+      <% question.tags.each do |tag| %>
+        <%= link_to tag.name, tag, style: 'text-decoration: none; font-size: 10pt; color: gray;' %>
+      <% end %>
     <% end %>
   </p>
 <% end %>
