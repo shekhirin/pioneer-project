@@ -54,11 +54,13 @@ class QuestionsController < ApplicationController
   def question_params
     q_params = params.require(:question).permit(:body, :tags, :manual_tags)
 
+    q_params[:tags] ||= []
+
     if q_params[:manual_tags]
-      q_params[:tags] = q_params.delete(:manual_tags).split(',')
+      q_params[:tags] += q_params.delete(:manual_tags).split(',')
     end
 
-    q_params[:tags] = (q_params[:tags] || []).map { |tag| Tag.find_or_create_by(name: tag.strip) }
+    q_params[:tags] = q_params[:tags].map { |tag| Tag.find_or_create_by(name: tag.strip) }
 
     q_params
   end
