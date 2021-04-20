@@ -1,15 +1,16 @@
 <h1><%= @question.body %></h1>
 
-<p>
-  <% @question.tags.each do |tag| %>
-  <%= tag %>
-  <% end %>
-</p>
+<% if @question.tags.any? %>
+  <h3>Tags:</h3>
+  <ul>
+    <% @question.tags.each do |tag| %>
+      <li><%= tag.name %></li>
+    <% end %>
+  </ul>
+<% end %>
 
-<h2>Add a reply:</h2>
-<%= form_with model: [ @question, @question.replies.build ] do |form| %>
+<%= form_with model: [@question, @question.replies.build] do |form| %>
   <p>
-    <%= form.label :body %><br>
     <%= form.text_area :body %>
   </p>
   <p>

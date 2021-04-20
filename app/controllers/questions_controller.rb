@@ -12,10 +12,7 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    params = question_params.to_h
-    params[:tags] = transform_tags(params[:tags])
-
-    @question = Question.new(params)
+    @question = Question.new(question_params)
 
     if @question.save
       redirect_to @question
@@ -31,10 +28,7 @@ class QuestionsController < ApplicationController
   def update
     @question = Question.find(params[:id])
 
-    params = question_params.to_h
-    params[:tags] = transform_tags(params[:tags])
-
-    if @question.update(params)
+    if @question.update(question_params)
       redirect_to @question
     else
       render :edit
@@ -51,10 +45,14 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:body, :tags)
-  end
+    q_params = params.require(:question).permit(:body, :tags, :manual_tags)
 
-  def transform_tags(tags)
-    (tags || []).map { |tag| Tag.find_or_create_by(tag) }
+    if q_params[:manual_tags]
+      q_params[:tags] = q_params.delete(:manual_tags).split(',')
+    end
+
+    q_params[:tags] = (q_params[:tags] || []).map { |tag| Tag.find_or_create_by(name: tag.strip) }
+
+    q_params
   end
 end

@@ -1,7 +1,9 @@
 <h2>Questions</h2>
 <% @questions.each do |question| %>
   <p>
-    <%= question.body %>
-    <%= question.tags %>
+    <%= link_to question.body, question %>
+    <% if question.tags.any? %>
+      (<%= question.tags.map { |tag| tag.name } .join(', ') %>)
+    <% end %>
   </p>
 <% end %>
