@@ -1,10 +1,17 @@
 class QuestionsController < ApplicationController
   def index
-    @questions = Question.all
+    # This is how news.ycombinator.com sorting algorithm behaves. It's not very suitable for us, it's a good starting point for sorting though.
+    @questions = Question.all.sort_by { |question| (question.views - 1) / ((Time.now - question.created_at).hours + 2) ** 1.8 }
+  end
+
+  def newest
+    @questions = Question.all.order(created_at: :desc)
   end
 
   def show
     @question = Question.find(params[:id])
+
+    @question.increase_views
   end
 
   def new

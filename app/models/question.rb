@@ -6,4 +6,9 @@ class Question < ApplicationRecord
   has_many :replies, -> { order(created_at: :desc) }
 
   validates :body, presence: true
+
+  def increase_views
+    self.views += 1
+    save!
+  end
 end

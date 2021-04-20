@@ -5,5 +5,7 @@ Rails.application.routes.draw do
     resources :replies
   end
 
+  get 'newest' => 'questions#newest'
+
   resources :tags
 end
